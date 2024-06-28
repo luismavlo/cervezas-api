@@ -8,6 +8,7 @@ export class AppRoutes {
     const router = Router()
 
     router.use('/api/v1/beer', BeerRoutes.routes)
+    //router.use('/api/v1/wine', WineRoutes.routes)
 
     return router;
 

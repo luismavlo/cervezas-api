@@ -1,6 +1,7 @@
 
 
 import { Router, Request, Response } from 'express';
+import { BeerController } from './controller';
 
 
 export class BeerRoutes {
@@ -8,22 +9,14 @@ export class BeerRoutes {
   static get routes(): Router {
     const router = Router();
 
-    router.get('/', (req: Request, res: Response) => {
-      res.json({ok: true})
-    })
-    router.post('/', (req: Request, res: Response) => {
-      res.json({ok: true})
-    })
-    router.get('/:id', (req: Request, res: Response) => {
-      res.json({ok: true})
-    })
-    router.patch('/:id', (req: Request, res: Response) => {
-      res.json({ok: true})
-    })
-    router.delete('/:id', (req: Request, res: Response) => {
-      res.json({ok: true})
-    })
+    const beerContreller = new BeerController();
 
+    router.get('/', beerContreller.getBeers)
+    router.post('/', beerContreller.createBeer)
+    router.get('/:id', beerContreller.getBeer)
+    router.patch('/:id', beerContreller.updateBeer)
+    router.delete('/:id', beerContreller.deleteBeer)
+    
     return router;
   }
 
