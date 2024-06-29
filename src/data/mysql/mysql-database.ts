@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm';
+import { Beer } from './models/beer.model';
 
 interface ConnectionOptions {
   host: string;
@@ -20,7 +21,7 @@ export class MysqlDatabase {
       username: options.username,
       password: options.password,
       database: options.database,
-      //entities: [],
+      entities: [Beer],
       synchronize: true,
     })
   }

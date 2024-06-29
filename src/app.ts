@@ -1,8 +1,8 @@
 import "reflect-metadata"
 import { Server } from './presentation/server';
 import { AppRoutes } from './presentation/routes';
-import { MysqlDatabase } from './data/mysql/mysql-database';
-import { envs } from './data/config/envs';
+import { MysqlDatabase } from './data';
+import { envs } from './config/envs';
 
 
 
