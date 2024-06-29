@@ -1,3 +1,4 @@
+import { Beer } from '../../data';
 import { CreateBeerDTO } from '../../domain'
 
 //importar el modelo
@@ -9,23 +10,57 @@ export class BeerService {
   }
 
   async createBeer(crateBeerDTO: CreateBeerDTO){
-    return crateBeerDTO
+    const beer = new Beer();
+
+    beer.name = crateBeerDTO.name;
+    beer.origin = crateBeerDTO.origin;
+    beer.scent = crateBeerDTO.scent;
+    beer.lvlAlcohol = crateBeerDTO.lvlAlcohol;
+    beer.brand = crateBeerDTO.brand;
+    beer.price = crateBeerDTO.price;
+
+    try {
+      return await beer.save();
+    } catch (error) {
+      throw new Error("Internal Server Error");
+      
+    }
   }
   
   async getBeer(id: number){
-    return 'getBeer'
+    const beer = await Beer.findOne({
+      where: {
+        id: id
+      }
+    });
+
+    if(!beer) throw new Error('No se encontro el registro');
+
+    return beer
   }
 
   async updateBeer(crateBeerDTO: CreateBeerDTO, id: number){
-    return 'updateBeer'
+    const beer = await this.getBeer(id);
+
+    beer.name = crateBeerDTO.name;
+    beer.origin = crateBeerDTO.origin;
+    beer.scent = crateBeerDTO.scent;
+    beer.lvlAlcohol = crateBeerDTO.lvlAlcohol;
+    beer.brand = crateBeerDTO.brand;
+    beer.price = crateBeerDTO.price;
+
+    try {
+      return await beer.save();
+    } catch (error) {
+      console.log(error);
+      throw new Error("Internal Server Error");
+    }
+
+
   }
 
   async deleteBeer(id: number){
     return 'deleteBeer'
   }
-
-
-  //se van a crear un metodo para cada uno de los metodos de los controladores
-  //retornar una palabra;
 }
 

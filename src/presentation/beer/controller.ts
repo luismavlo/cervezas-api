@@ -26,21 +26,40 @@ export class BeerController {
   }
 
   getBeer = (req: Request, res: Response) => {
-    this.beerService.getBeer()
+    const { id } = req.params;
+    if( isNaN(+id)) {
+      return res.status(400).json({message: 'El id debe ser un numero'});
+    }
+
+    this.beerService.getBeer(+id)
       .then((data) => res.status(200).json(data))
-      .catch(error => res.status(500).json({message: error}))
+      .catch(error => res.status(500).json({message: error.message}))
   }
 
   updateBeer = (req: Request, res: Response) => {
-    this.beerService.updateBeer()
+    const { id } = req.params;
+    const [error, createBeerDTO ] = CreateBeerDTO.create(req.body);
+
+    if( isNaN(+id)) {
+      return res.status(400).json({message: 'El id debe ser un numero'});
+    }
+
+    if( error ) return res.status(422).json({message: error})
+
+    this.beerService.updateBeer(createBeerDTO!, +id)
       .then((data) => res.status(200).json(data))
-      .catch(error => res.status(500).json({message: error}))
+      .catch(error => res.status(500).json({message: error.message}))
   }
 
   deleteBeer = (req: Request, res: Response) => {
-    this.beerService.deleteBeer()
+    const { id } = req.params;
+    if( isNaN(+id)) {
+      return res.status(400).json({message: 'El id debe ser un numero'});
+    }
+
+    this.beerService.deleteBeer(+id)
       .then((data) => res.status(200).json(data))
-      .catch(error => res.status(500).json({message: error}))
+      .catch(error => res.status(500).json({message: error.message}))
   }
 
 }
