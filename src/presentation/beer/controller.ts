@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { BeerService } from '../services/beer.service'
+import { CreateBeerDTO } from '../../domain'
 
 
 export class BeerController {
@@ -13,7 +14,13 @@ export class BeerController {
   }
 
   createBeer = (req: Request, res: Response) => {
-    this.beerService.createBeer()
+    
+    const [error, createBeerDTO ] = CreateBeerDTO.create(req.body);
+    if( error ) return res.status(422).json({message: error})
+
+    console.log(createBeerDTO?.name.length)
+
+    this.beerService.createBeer(createBeerDTO!)
       .then((data) => res.status(201).json(data))
       .catch(error => res.status(500).json({message: error}))
   }

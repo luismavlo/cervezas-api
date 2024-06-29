@@ -1,5 +1,6 @@
+import { CreateBeerDTO } from '../../domain'
 
-
+//importar el modelo
 
 export class BeerService {
   
@@ -7,19 +8,19 @@ export class BeerService {
     return 'getBeers'
   }
 
-  async createBeer(){
-    return 'createBeer'
+  async createBeer(crateBeerDTO: CreateBeerDTO){
+    return crateBeerDTO
   }
   
-  async getBeer(){
+  async getBeer(id: number){
     return 'getBeer'
   }
 
-  async updateBeer(){
+  async updateBeer(crateBeerDTO: CreateBeerDTO, id: number){
     return 'updateBeer'
   }
 
-  async deleteBeer(){
+  async deleteBeer(id: number){
     return 'deleteBeer'
   }
 
